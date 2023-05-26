@@ -1,0 +1,19 @@
+body {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}
+
+#root {
+  height: 100vh;
+  width: 100vw;
+}
+
+#root > div {
+  min-height: 100%;
+}
+
+.myIcon {
+  display: block;
+  font-size: x-large;
+}
