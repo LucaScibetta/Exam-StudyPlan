@@ -72,11 +72,11 @@ app.get('/api/courses', (req, res) => {
 
 // PUT /api/users/time
 app.put('/api/users/time', [
-    check('time').isAlpha().isIn(['full', 'part', 'null']).withMessage('Invalid value for study plan time.')
+    check('time').isAlpha().isIn(['full', 'part', 'null'])
 ], isLoggedIn, (req, res) => {
     const errors = validationResult(req);
     if(!errors.isEmpty())
-        return res.status(422).json({errors: errors.array()});
+        return res.status(422).json({error: "Invalid value for study plan time."});
     userDao.getUserById(req.user.id)
     .then(u => {
         if(u.error !== undefined)

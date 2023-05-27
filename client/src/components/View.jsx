@@ -64,8 +64,8 @@ function UserView(props) {
           <h2>Manage your study plane.</h2>
           {props.studyPlanTime === '' ? <>
             <span className='mb-2'>Create your study plan!</span>
-            <span><Button className='btn btn-secondary' onClick={() => props.createStudyPlan(props.id, 'full')}>Full-time</Button>&nbsp;
-            <Button className='btn btn-secondary' onClick={() => props.createStudyPlan(props.id, 'part')}>Part-time</Button></span>
+            <span><Button className='btn btn-secondary' onClick={() => props.createStudyPlan('full')}>Full-time</Button>&nbsp;
+            <Button className='btn btn-secondary' onClick={() => props.createStudyPlan('part')}>Part-time</Button></span>
           </> :
           <>
             <span>Here's your {props.studyPlanTime}-time study plan. Remember to save all the changes!</span>
@@ -87,9 +87,9 @@ function UserView(props) {
         </Container>}
         <Container fluid className='my-2 d-flex justify-content-center'>
           {props.studyPlanTime !== '' && <>
-            <Button className='btn btn-light mb-5 mx-2' onClick={() => props.getStudyPlan(props.id)}>Cancel changes</Button>
-            <Button className='btn btn-light mb-5 mx-2' disabled={props.studyPlanTime === 'full' ? props.totCredits < 60 || props.totCredits > 80 : props.totCredits < 20 || props.totCredits > 40} onClick={() => props.saveStudyPlan(props.id, props.studyPlan)}>Save study plan</Button>
-            <Button className='btn btn-light mb-5 mx-2' onClick={() => props.deleteStudyPlan(props.id)}>Delete study plan</Button>
+            <Button className='btn btn-light mb-5 mx-2' onClick={() => props.getStudyPlan()}>Cancel changes</Button>
+            <Button className='btn btn-light mb-5 mx-2' disabled={props.studyPlanTime === 'full' ? props.totCredits < 60 || props.totCredits > 80 : props.totCredits < 20 || props.totCredits > 40} onClick={() => props.saveStudyPlan(props.studyPlan)}>Save study plan</Button>
+            <Button className='btn btn-light mb-5 mx-2' onClick={() => props.deleteStudyPlan()}>Delete study plan</Button>
           </>}
         </Container>
         <Container fluid className='my-2 d-flex flex-column align-items-center'>
