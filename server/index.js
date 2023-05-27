@@ -123,7 +123,7 @@ app.post('/api/studyplans', [
 ], isLoggedIn, (req, res) => {
     const errors = validationResult(req);
     if(!errors.isEmpty()){
-        return res.status(422).json({errors: errors.array()});
+        return res.status(422).json({errors: "Study plan should respect all constraints."});
     }
     userDao.getStudyPlanTime(req.user.id)
     .then(studyPlanTime => {
