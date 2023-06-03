@@ -34,7 +34,7 @@ function CourseRow(props) {
   const preparatory = props.course.preparatoryCourse && props.studyPlan && props.studyPlan.every(c => c.code !== props.course.preparatoryCourse);
   const maxStudents = props.course.enrolledStudents === props.course.maxStudents;
   const already = props.studyPlan && props.studyPlan.some(c => c.code === props.course.code);
-  const disabledAdd = props.studyPlan && props.studyPlanTime !== '' && props.studyPlan.length > 0 && (incompatibility || preparatory || maxStudents || already);
+  const disabledAdd = props.studyPlan && props.studyPlanTime !== '' && (incompatibility || preparatory || maxStudents || already);
   const disabledDelete = props.studyPlan && props.studyPlan.some(c => c.preparatoryCourse === props.course.code);
   const disabled = props.showButton === 'Delete' ? disabledDelete : props.showButton === 'Add' ? disabledAdd : false;
   let violatedConstraintClass = null;

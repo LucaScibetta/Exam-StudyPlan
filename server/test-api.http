@@ -1,0 +1,166 @@
+# This file could be used for testing the API with Visual Studio Code
+
+## Execute Log In full time
+POST http://localhost:3001/api/sessions HTTP/1.1
+content-type: application/json
+
+{
+    "username": "luca@polito.it",
+    "password": "passwordLuca"
+}
+###
+
+## Execute Log In part time
+POST http://localhost:3001/api/sessions HTTP/1.1
+content-type: application/json
+
+{
+    "username": "alice@polito.it",
+    "password": "passwordAlice"
+}
+###
+
+## Execute Log In no study plan
+POST http://localhost:3001/api/sessions HTTP/1.1
+content-type: application/json
+
+{
+    "username": "romina@polito.it",
+    "password": "passwordRomina"
+}
+###
+
+## Checking if user is still logged-in.
+GET http://localhost:3001/api/sessions/current HTTP/1.1
+###
+
+## Execute Log Out.
+DELETE http://localhost:3001/api/sessions/current HTTP/1.1
+###
+
+## Retrieving all the courses.
+GET http://localhost:3001/api/courses HTTP/1.1
+###
+
+## Updating study plan time of logged user.
+## "full", "part" o "null"
+PUT http://localhost:3001/api/users/time HTTP/1.1
+content-type: application/json
+
+{
+    "time": "full"
+}
+###
+
+## Get study plan time of logged user.
+GET http://localhost:3001/api/users/time HTTP/1.1
+###
+
+## Get study plan of logged user.
+GET http://localhost:3001/api/studyplans HTTP/1.1
+###
+
+## Create or replace study plan of logged user.
+## Full time working study plan.
+POST http://localhost:3001/api/studyplans HTTP/1.1
+content-type: application/json
+
+{
+    "studyPlan" : [
+        "02KPNOV",
+        "02GRSOV",
+        "01SQJOV",
+        "01TXSOV",
+        "01TXYOV",
+        "01TYDOV",
+        "01TYMOV",
+        "01URROV",
+        "02LSEOV",
+        "03UEWOV",
+        "04GSPOV"
+    ]
+}
+###
+
+## Create or replace study plan of logged user.
+## Part time working study plan.
+POST http://localhost:3001/api/studyplans HTTP/1.1
+content-type: application/json
+
+{
+    "studyPlan" : [
+        "01URROV",
+        "01SQJOV",
+        "02GRSOV",
+        "02LSEOV"
+    ]
+}
+###
+
+## Create or replace study plan of logged user.
+## Full time not working study plan because of preparatory constraint violated.
+POST http://localhost:3001/api/studyplans HTTP/1.1
+content-type: application/json
+
+{
+    "studyPlan" : [
+        "02GRSOV",
+        "01SQOOV",
+        "01SQJOV",
+        "01TXSOV",
+        "01TXYOV",
+        "01TYDOV",
+        "01TYMOV",
+        "01URROV",
+        "02LSEOV",
+        "03UEWOV",
+        "05BIDOV"
+    ]
+}
+###
+
+## Create or replace study plan of logged user.
+## Full time not working study plan because of maximum number of enrolled students reached.
+POST http://localhost:3001/api/studyplans HTTP/1.1
+content-type: application/json
+
+{
+    "studyPlan" : [
+        "01SQMOV",
+        "01UDFOV",
+        "02GOLOV",
+        "03UEWOV",
+        "01URROV",
+        "01OTWOV",
+        "01TYMOV",
+        "01NYHOV"
+    ]
+}
+###
+
+## Create or replace study plan of logged user.
+## Full time not working study plan because of incompatibility constraint violated.
+POST http://localhost:3001/api/studyplans HTTP/1.1
+content-type: application/json
+
+{
+    "studyPlan" : [
+        "02GRSOV",
+        "02KPNOV",
+        "01SQJOV",
+        "01TXSOV",
+        "01TXYOV",
+        "01TYDOV",
+        "01TYMOV",
+        "01URROV",
+        "02LSEOV",
+        "03UEWOV",
+        "04GSPOV",
+        "05BIDOV"
+    ]
+}
+###
+
+## Delete study plan of logged user.
+DELETE http://localhost:3001/api/studyplans HTTP/1.1
+###

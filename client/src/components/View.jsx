@@ -96,7 +96,7 @@ function UserView(props) {
           <h3>Our courses</h3>
           {props.studyPlanTime !== '' && <>
             <span className='text-warning'>Yellow-marked courses cannot be added to study plan because you have to add first their preparatory course.</span>
-            <span className='text-danger'>Red-marked courses cannot be added to study plan because you have in your study plan an incompatible course (or the course itself).</span>
+            <span className='text-danger'>Red-marked courses cannot be added to study plan because you have in your study plan an incompatible course.</span>
             <span className='text-success'>Green-marked courses cannot be added to study plan because they have reached maximum number of enrolled students.</span>
             <span className='text-primary'>Blue-marked courses are already present in your study plan.</span>
           </>}

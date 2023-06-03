@@ -49,8 +49,12 @@ passport.use(new LocalStrategy(async function verify(username, password, cb) {
   const user = await userDao.getUser(username, password);
   if(!user)
     return cb(null, false, 'Incorrect username and/or password.');
-    
-  return cb(null, user);
+  const myUser = {
+    id: user.id,
+    username: user.username,
+    name: user.name
+  };
+  return cb(null, myUser);
 }));
 
 passport.serializeUser(function (user, cb) {
@@ -120,7 +124,7 @@ app.post('/api/studyplans', [
             throw new Error('Study plan cannot have the same course twice.');
         return true;
     })
-], isLoggedIn, (req, res) => {
+], isLoggedIn, async (req, res) => {
     const errors = validationResult(req);
     if(!errors.isEmpty()){
         return res.status(422).json({errors: "Study plan should respect all constraints."});
@@ -131,7 +135,7 @@ app.post('/api/studyplans', [
             return res.status(404).json({"error": "Study plan not found."})
         }
         courseDao.listCourses()
-        .then(courses => {
+        .then(async courses => {
             let totCredits = 0;
             let unexisting = false;
             let incompatibility = false;
@@ -170,13 +174,12 @@ app.post('/api/studyplans', [
             if(preparatory)
                 return res.status(409).json({"error": "Preparatory course constraint violated."});
 
+            
             if(maxStudentsReached !== []){
-                studyplanDao.getStudyPlan(req.user.id)
-                .then(courses => {
-                    maxStudentsReached.forEach(code => {
-                        if(courses.every(course => course.code !== code))
-                            maxStudents = true;
-                    })
+                const courses = await studyplanDao.getStudyPlan(req.user.id);
+                maxStudentsReached.forEach(code => {
+                    if(courses.every(course => course.code !== code))
+                        maxStudents = true;
                 })
             }
 
